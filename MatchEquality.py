@@ -3,7 +3,6 @@ import os
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 import numpy as np
-import cv2
 import json
 
 
@@ -13,6 +12,14 @@ class MainWindow(object):
         self.main_window = None
         # 组件
         self.button_open = None
+        # 读取火柴移动规则
+        file = open('./data/rule.json', encoding='utf-8')
+        self.rule = json.loads(file.read())
+        file.close()
+        # 读取题库
+        file = open('./data/question.json', encoding='utf-8')
+        self.question = json.loads(file.read())
+        file.close()
 
     def setup_ui(self, main_window):
         self.main_window = main_window
@@ -38,62 +45,21 @@ class MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         self.main_window.setWindowTitle(_translate("mainWindow", "移动火柴"))
 
+    def get_move_results(self, origin, operation):
+        return self.rule[origin][operation]
+
 
 if __name__ == "__main__":
-
-    f = open('./data/rule.json', encoding='utf-8')
-    res = f.read()
-    rule = json.loads(res)
-    f.close()
-
-    def opop(op):
-        if op == "+1":
-            return "-1"
-        if op == "-1":
-            return "+1"
-        if op == "=1":
-            return "=1"
-        if op == "+2":
-            return "-2"
-        if op == "-2":
-            return "+2"
-        if op == "=2":
-            return "=2"
-        if op == "-=1":
-            return "+=1"
-        if op == "+=1":
-            return "-=1"
-
-
-
-    for number1 in rule.keys():
-        for operation in rule[number1].keys():
-            for number2 in rule[number1][operation]:
-                if number1 in rule[number2][opop(operation)]:
-                    pass
-                else:
-                    print(number1)
-                    print(operation)
-                    print(number2)
-                    print("-------------")
-
-
-
-    print(rule)
-
-    with open("./data/rule.json", "w") as f:
-        json.dump(rule, f)
-
-    '''
     app = QtWidgets.QApplication(sys.argv)
     window = QtWidgets.QMainWindow()
     ui = MainWindow()
     ui.setup_ui(window)
     window.show()
     sys.exit(app.exec_())
-    
-    '''
 
+
+
+    
 
 
 
