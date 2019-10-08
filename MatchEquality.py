@@ -46,16 +46,38 @@ if __name__ == "__main__":
     rule = json.loads(res)
     f.close()
 
-    rule["*"] = {
-        "+1": [],
-        "-1": [],
-        "=1": [],
-        "+2": [],
-        "-2": [],
-        "=2": ["+"],
-        "+=1": [],
-        "-=1": ["-"]
-    }
+    def opop(op):
+        if op == "+1":
+            return "-1"
+        if op == "-1":
+            return "+1"
+        if op == "=1":
+            return "=1"
+        if op == "+2":
+            return "-2"
+        if op == "-2":
+            return "+2"
+        if op == "=2":
+            return "=2"
+        if op == "-=1":
+            return "+=1"
+        if op == "+=1":
+            return "-=1"
+
+
+
+    for number1 in rule.keys():
+        for operation in rule[number1].keys():
+            for number2 in rule[number1][operation]:
+                if number1 in rule[number2][opop(operation)]:
+                    pass
+                else:
+                    print(number1)
+                    print(operation)
+                    print(number2)
+                    print("-------------")
+
+
 
     print(rule)
 
