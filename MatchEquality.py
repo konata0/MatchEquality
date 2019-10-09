@@ -4,6 +4,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 import numpy as np
 import json
+import cv2
 
 
 class MainWindow(object):
@@ -26,8 +27,11 @@ class MainWindow(object):
         file.close()
         # 读取题库
         file = open('./data/question.json', encoding='utf-8')
-        self.question = json.loads(file.read())
+        self.questions = json.loads(file.read())
         file.close()
+        self.question = self.questions[0]
+        self.move_number = self.question["moveNumber"]
+        self.if_equality = self.question["equality"]
 
     def setup_ui(self, main_window):
         self.main_window = main_window
@@ -66,6 +70,7 @@ class MainWindow(object):
             self.label_question_img[i].setObjectName("label_question_img" + str(i))
             self.label_question_img[i].setText("")
             self.label_question_img[i].setStyleSheet("QLabel{background:white;}")
+        self.set_question_img(self.question["question"])
         # 解答
         self.label_answer = QtWidgets.QLabel(self.centralWidget)
         self.label_answer.setGeometry(QtCore.QRect(20, 270, 800, 30))
@@ -100,6 +105,34 @@ class MainWindow(object):
         else:
             string += "非等式"
         self.label_message.setText(string)
+
+    def set_question_img(self, question_string):
+        for i in range(0, 8):
+            char = question_string[i]
+            if char == "?":
+                char = "space"
+            if char == "*":
+                char = "x"
+            img_path = "./data/img/" + char + ".png"
+            img = QtGui.QPixmap(img_path).scaled(
+                self.label_question_img[i].width(),
+                self.label_question_img[i].height()
+            )
+            self.label_question_img[i].setPixmap(img)
+
+    def set_answer_img(self, answer_string):
+        for i in range(0, 8):
+            char = answer_string[i]
+            if char == "?":
+                char = "space"
+            if char == "*":
+                char = "x"
+            img_path = "./data/img/" + char + ".png"
+            img = QtGui.QPixmap(img_path).scaled(
+                self.label_answer_img[i].width(),
+                self.label_answer_img[i].height()
+            )
+            self.label_answer_img[i].setPixmap(img)
 
     def get_move_results(self, origin, operation):
         return self.rule[origin][operation]
