@@ -1,0 +1,27 @@
+let move1 = [];
+for(let i = 0; i <= 7; i++){
+    for(let j = 0; j <= 7; j++){
+        if(i === j || i === 5 || j === 5){
+            continue;
+        }
+        a = ["0", "0", "0", "0", "0", "0", "0", "0"];
+        a[i] = "+1";
+        a[j] = "-1";
+        move1.push(a);
+    }
+}
+for(let i = 0; i <= 7; i++){
+    if(i === 5){
+        continue;
+    }
+    a = ["0", "0", "0", "0", "0", "0", "0", "0"];
+    a[i] = "=1";
+    move1.push(a);
+}
+
+console.log(move1);
+console.log(JSON.stringify(move1));
+console.log("---------------------");
+
+let move2 = [];
+// +1 +1 -1 -1

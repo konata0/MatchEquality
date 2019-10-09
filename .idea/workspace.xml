@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9f29b154-9da3-46bd-94aa-02b5f0fc34d1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/MatchEquality.py" beforeDir="false" afterPath="$PROJECT_DIR$/MatchEquality.py" afterDir="false" />
-    </list>
+    <list default="true" id="9f29b154-9da3-46bd-94aa-02b5f0fc34d1" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,8 +13,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MatchEquality.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4600">
-              <caret line="207" column="29" selection-start-line="207" selection-start-column="13" selection-end-line="207" selection-end-column="29" />
+            <state relative-caret-position="353">
+              <caret line="240" column="25" selection-start-line="240" selection-start-column="25" selection-end-line="240" selection-end-column="25" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
                 <element signature="e#222#793#0" />
@@ -143,7 +141,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4993395" visible="true" weight="0.22237961" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4993395" visible="true" weight="0.25354108" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -175,8 +173,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MatchEquality.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4600">
-          <caret line="207" column="29" selection-start-line="207" selection-start-column="13" selection-end-line="207" selection-end-column="29" />
+        <state relative-caret-position="353">
+          <caret line="240" column="25" selection-start-line="240" selection-start-column="25" selection-end-line="240" selection-end-column="25" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#222#793#0" />
