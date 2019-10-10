@@ -7,7 +7,45 @@ import json
 import cv2
 
 
+def input_check(string):
+    try:
+        if len(string) < 5 or len(string) > 8:
+            return False
+        if "=" not in string:
+            return False
+        string_list = string.split("=")
+        if len(string_list) != 2:
+            return False
+        number3 = int(string_list[1])
+        string = string_list[0]
+        operation = "n"
+        if "-" in string:
+            operation = "-"
+        if "*" in string:
+            operation = "*"
+        if "+" in string:
+            operation = "+"
+        if operation == "n":
+            return False
+        string_list = string.split(operation)
+        if len(string_list) != 2:
+            return False
+        number1 = int(string_list[0])
+        number2 = int(string_list[1])
+        if number1 < 0 or number1 > 99:
+            return False
+        if number2 < 0 or number2 > 99:
+            return False
+        if number3 < 0 or number3 > 99:
+            return False
+    except:
+        return False
+    else:
+        return True
+
+
 def question_string_normal_to_standard(question_string):
+    question_string = question_string.replace(" ", "")
     string_list = question_string.split("=", 1)
     number3 = string_list[1]
     operation = "+"
@@ -34,7 +72,7 @@ def question_string_normal_to_standard(question_string):
 
 
 def question_string_standard_to_normal(question_string):
-    return question_string.replace('?', '')
+    return question_string.replace('?', '').replace(' ', '')
 
 
 class MainWindow(object):
@@ -52,8 +90,12 @@ class MainWindow(object):
         self.button_move_2 = None
         self.button_equality = None
         self.button_not_equality = None
+        self.button_answer = None
+        self.button_add = None
         self.question_list = None
         self.question_list_string = None
+        self.edit_add = None
+        self.edit_answer = None
         # 变量
         self.move_number = 1
         self.if_equality = False
@@ -65,7 +107,7 @@ class MainWindow(object):
         file = open('./data/question.json', encoding='utf-8')
         self.questions = json.loads(file.read())
         file.close()
-        self.question = self.questions[0]["question"]
+        self.question = None
         self.move_number = self.questions[0]["moveNumber"]
         self.if_equality = self.questions[0]["equality"]
 
@@ -73,7 +115,7 @@ class MainWindow(object):
         self.main_window = main_window
         self.main_window.setObjectName("mainWindow")
         self.main_window.setWindowModality(QtCore.Qt.WindowModal)
-        self.main_window.setFixedSize(1280, 720)
+        self.main_window.setFixedSize(1280, 660)
         self.main_window.setStyleSheet("#mainWindow{background-color: #f6f6f6}")
 
         self.centralWidget = QtWidgets.QWidget(self.main_window)
@@ -82,25 +124,37 @@ class MainWindow(object):
         # 按钮
         # 选择题库
         self.button_move_1 = QtWidgets.QPushButton(self.centralWidget)
-        self.button_move_1.setGeometry(QtCore.QRect(1000, 580, 120, 40))
+        self.button_move_1.setGeometry(QtCore.QRect(1000, 520, 120, 40))
         self.button_move_1.setObjectName("button_move_1")
         self.button_move_1.setText("移动1根火柴")
         self.button_move_1.clicked.connect(self.button_move_1_click)
         self.button_move_2 = QtWidgets.QPushButton(self.centralWidget)
-        self.button_move_2.setGeometry(QtCore.QRect(1140, 580, 120, 40))
+        self.button_move_2.setGeometry(QtCore.QRect(1140, 520, 120, 40))
         self.button_move_2.setObjectName("button_move_2")
         self.button_move_2.setText("移动2根火柴")
         self.button_move_2.clicked.connect(self.button_move_2_click)
         self.button_not_equality = QtWidgets.QPushButton(self.centralWidget)
-        self.button_not_equality.setGeometry(QtCore.QRect(1000, 640, 120, 40))
+        self.button_not_equality.setGeometry(QtCore.QRect(1000, 580, 120, 40))
         self.button_not_equality.setObjectName("button_not_equality")
         self.button_not_equality.setText("非等式")
         self.button_not_equality.clicked.connect(self.button_not_equality_click)
         self.button_equality = QtWidgets.QPushButton(self.centralWidget)
-        self.button_equality.setGeometry(QtCore.QRect(1140, 640, 120, 40))
+        self.button_equality.setGeometry(QtCore.QRect(1140, 580, 120, 40))
         self.button_equality.setObjectName("button_equality")
         self.button_equality.setText("等式")
         self.button_equality.clicked.connect(self.button_equality_click)
+
+        self.button_answer = QtWidgets.QPushButton(self.centralWidget)
+        self.button_answer.setGeometry(QtCore.QRect(160, 520, 120, 40))
+        self.button_answer.setObjectName("button_answer")
+        self.button_answer.setText("作答")
+        self.button_answer.clicked.connect(self.button_answer_click)
+
+        self.button_add = QtWidgets.QPushButton(self.centralWidget)
+        self.button_add.setGeometry(QtCore.QRect(160, 580, 120, 40))
+        self.button_add.setObjectName("button_add")
+        self.button_add.setText("添加到当前题库")
+        self.button_add.clicked.connect(self.button_add_click)
 
         # LABEL
         # 提示信息
@@ -121,7 +175,6 @@ class MainWindow(object):
             self.label_question_img[i].setObjectName("label_question_img" + str(i))
             self.label_question_img[i].setText("")
             self.label_question_img[i].setStyleSheet("QLabel{background:white;}")
-        self.set_question_img(self.question)
         # 解答
         self.label_answer = QtWidgets.QLabel(self.centralWidget)
         self.label_answer.setGeometry(QtCore.QRect(20, 260, 800, 30))
@@ -136,15 +189,27 @@ class MainWindow(object):
             self.label_answer_img[i].setStyleSheet("QLabel{background:white;}")
         # 提示信息
         self.label_setting = QtWidgets.QLabel(self.centralWidget)
-        self.label_setting.setGeometry(QtCore.QRect(1000, 540, 800, 30))
+        self.label_setting.setGeometry(QtCore.QRect(1000, 490, 800, 30))
         self.label_setting.setObjectName("label_setting")
         self.label_setting.setText("选择题库：")
 
         # 题库
         self.question_list = QtWidgets.QListView(self.centralWidget)
-        self.question_list.setGeometry(QtCore.QRect(1000, 80, 260, 450))
+        self.question_list.setGeometry(QtCore.QRect(1000, 80, 260, 400))
         self.question_list.setObjectName("question_list")
         self.set_question_list()
+
+        # 编辑框
+        # 检测回答
+        self.edit_answer = QtWidgets.QLineEdit(self.centralWidget)
+        self.edit_answer.setGeometry(QtCore.QRect(20, 520, 120, 40))
+        self.edit_answer.setObjectName("edit_answer")
+        self.edit_answer.setAlignment(QtCore.Qt.AlignCenter)
+        # 添加题库
+        self.edit_add = QtWidgets.QLineEdit(self.centralWidget)
+        self.edit_add.setGeometry(QtCore.QRect(20, 580, 120, 40))
+        self.edit_add.setObjectName("edit_add")
+        self.edit_add.setAlignment(QtCore.Qt.AlignCenter)
 
         self.main_window.setCentralWidget(self.centralWidget)
         self.retranslate_ui()
@@ -202,6 +267,9 @@ class MainWindow(object):
         self.question_list.setModel(slm)
         self.question_list.clicked.connect(self.question_list_click)
         self.question_list.doubleClicked.connect(self.question_list_click)
+        self.question = None
+        self.set_question_img("????????")
+        self.set_answer_img("88888888")
 
     def question_list_click(self, index):
         self.question = question_string_normal_to_standard(self.question_list_string[index.row()])
@@ -227,6 +295,18 @@ class MainWindow(object):
         self.if_equality = True
         self.set_label_message()
         self.set_question_list()
+
+    def button_answer_click(self):
+        pass
+
+    def button_add_click(self):
+        string = self.edit_add.text()
+        if not input_check(string):
+            QMessageBox.warning(self.main_window, "error", "输入字符串不符合格式！", QMessageBox.Yes)
+            return
+        string = question_string_normal_to_standard(string)
+        print(string)
+        pass
 
     def get_move_results(self, origin, operation):
         return self.rule[origin][operation]
