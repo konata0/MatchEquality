@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9f29b154-9da3-46bd-94aa-02b5f0fc34d1" name="Default Changelist" comment="" />
+    <list default="true" id="9f29b154-9da3-46bd-94aa-02b5f0fc34d1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/getMove.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/move.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/move.json" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,11 +17,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MatchEquality.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
+            <state relative-caret-position="728">
               <caret line="240" column="25" selection-start-line="240" selection-start-column="25" selection-end-line="240" selection-end-column="25" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
-                <element signature="e#222#793#0" />
               </folding>
             </state>
           </provider>
@@ -57,6 +60,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -73,7 +77,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -164,20 +167,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/render">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="12" column="7" lean-forward="true" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/data/render" />
     <entry file="file://$PROJECT_DIR$/MatchEquality.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
+        <state relative-caret-position="728">
           <caret line="240" column="25" selection-start-line="240" selection-start-column="25" selection-end-line="240" selection-end-column="25" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#222#793#0" />
           </folding>
         </state>
       </provider>
