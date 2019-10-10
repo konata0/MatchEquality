@@ -75,6 +75,28 @@ def question_string_standard_to_normal(question_string):
     return question_string.replace('?', '').replace(' ', '')
 
 
+def equality_check(equality_string):
+    equality_string = question_string_standard_to_normal(equality_string)
+    string_list = equality_string.split("=")
+    string = string_list[0]
+    number3 = int(string_list[1])
+    operation = "+"
+    if "-" in string:
+        operation = "-"
+    if "*" in string:
+        operation = "*"
+    string_list = string.split(operation)
+    number1 = int(string_list[0])
+    number2 = int(string_list[1])
+    if operation == "+":
+        return number1 + number2 == number3
+    if operation == "-":
+        return number1 - number2 == number3
+    if operation == "*":
+        return number1 * number2 == number3
+    return False
+
+
 class MainWindow(object):
     def __init__(self):
         self.centralWidget = None
@@ -99,9 +121,13 @@ class MainWindow(object):
         # 变量
         self.move_number = 1
         self.if_equality = False
+        self.answers = []
         # 读取火柴移动规则
         file = open('./data/rule.json', encoding='utf-8')
         self.rule = json.loads(file.read())
+        file.close()
+        file = open('./data/move.json', encoding='utf-8')
+        self.move = json.loads(file.read())
         file.close()
         # 读取题库
         file = open('./data/question.json', encoding='utf-8')
@@ -297,6 +323,11 @@ class MainWindow(object):
         self.set_question_list()
 
     def button_answer_click(self):
+        string = self.edit_answer.text()
+        if not input_check(string):
+            QMessageBox.warning(self.main_window, "error", "输入字符串不符合格式！", QMessageBox.Yes)
+            return
+        string = question_string_normal_to_standard(string)
         pass
 
     def button_add_click(self):
@@ -305,11 +336,17 @@ class MainWindow(object):
             QMessageBox.warning(self.main_window, "error", "输入字符串不符合格式！", QMessageBox.Yes)
             return
         string = question_string_normal_to_standard(string)
-        print(string)
+        if self.if_equality and not equality_check(string):
+            QMessageBox.warning(self.main_window, "error", "该题库要求输入等式！", QMessageBox.Yes)
+            return
         pass
 
     def get_move_results(self, origin, operation):
         return self.rule[origin][operation]
+
+    def get_answers(self, question_string, move_number):
+        pass
+
 
 
 if __name__ == "__main__":

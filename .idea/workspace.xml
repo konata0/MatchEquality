@@ -15,13 +15,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MatchEquality.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
+            <state relative-caret-position="380">
+              <caret line="347" column="12" selection-start-line="347" selection-start-column="12" selection-end-line="347" selection-end-column="12" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
                 <element signature="e#190#415#0" />
                 <element signature="e#1238#1795#0" />
                 <element signature="e#1854#1903#0" />
+                <element signature="e#2009#2631#0" />
               </folding>
             </state>
           </provider>
@@ -154,7 +155,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4993395" visible="true" weight="0.16147308" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4993395" visible="true" weight="0.12464589" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -180,13 +181,14 @@
     <entry file="file://$PROJECT_DIR$/data/render" />
     <entry file="file://$PROJECT_DIR$/MatchEquality.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
+        <state relative-caret-position="380">
+          <caret line="347" column="12" selection-start-line="347" selection-start-column="12" selection-end-line="347" selection-end-column="12" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#190#415#0" />
             <element signature="e#1238#1795#0" />
             <element signature="e#1854#1903#0" />
+            <element signature="e#2009#2631#0" />
           </folding>
         </state>
       </provider>
