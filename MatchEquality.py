@@ -1,10 +1,7 @@
 import sys
-import os
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QFileDialog, QMessageBox
-import numpy as np
+from PyQt5.QtWidgets import QMessageBox
 import json
-import cv2
 
 
 def input_check(string):
