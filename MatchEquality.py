@@ -122,6 +122,7 @@ class MainWindow(object):
         self.button_before = None
         self.button_next = None
         self.button_show_answer = None
+        self.button_clear = None
         self.question_list = None
         self.question_list_string = None
         self.edit_add = None
@@ -209,6 +210,11 @@ class MainWindow(object):
         self.button_next.setObjectName("button_next")
         self.button_next.setText("下一解答")
         self.button_next.clicked.connect(self.button_next_click)
+        self.button_clear = QtWidgets.QPushButton(self.centralWidget)
+        self.button_clear.setGeometry(QtCore.QRect(700, 580, 120, 40))
+        self.button_clear.setObjectName("button_clear")
+        self.button_clear.setText("清除题库")
+        self.button_clear.clicked.connect(self.button_clear_click)
 
         # LABEL
         # 提示信息
@@ -410,7 +416,8 @@ class MainWindow(object):
         })
         with open("./data/question.json", "w") as file:
             json.dump(self.questions, file)
-        QMessageBox.information(self.main_window, "添加", "添加成功，刷新题库后可见！", QMessageBox.Ok)
+        self.set_question_list()
+        QMessageBox.information(self.main_window, "添加", "添加成功！", QMessageBox.Ok)
 
     def button_generate_click(self):
         answer_string = self.edit_generate.text()
@@ -465,7 +472,10 @@ class MainWindow(object):
                                                 if equality_check(question_string):
                                                     re_questions.append(question_string)
                                             else:
-                                                if not equality_check(question_string):
+                                                if not equality_check(question_string) and question_string[0] != "0"\
+                                                        and question_string[3] != "0" and question_string[6] != "0" \
+                                                        and question_string[1] != "?" and question_string[4] != "?"\
+                                                        and question_string[7] != "?":
                                                     re_questions.append(question_string)
         if len(re_questions) == 0:
             QMessageBox.warning(self.main_window, "error", "该等式无法生成满足该题库条件的题目！", QMessageBox.Ok)
@@ -493,9 +503,10 @@ class MainWindow(object):
                         "moveNumber": self.move_number,
                         "equality": self.if_equality
                     })
-                    with open("./data/question.json", "w") as file:
-                        json.dump(self.questions, file)
-            QMessageBox.information(self.main_window, "添加", "添加成功，刷新题库后可见！", QMessageBox.Ok)
+            with open("./data/question.json", "w") as file:
+                json.dump(self.questions, file)
+            self.set_question_list()
+            QMessageBox.information(self.main_window, "添加", "添加成功！", QMessageBox.Ok)
 
     def button_show_answer_click(self):
         if self.question is None:
@@ -528,6 +539,15 @@ class MainWindow(object):
             self.answer_index += 1
         self.label_answer.setText("解答（" + str(self.answer_index + 1) + "/" + str(len(self.answers)) + "）：")
         self.set_answer_img(self.answers[self.answer_index])
+
+    def button_clear_click(self):
+        re = QMessageBox.warning(self.main_window, "清空题库", "清空后无法找回，是否清空题库", QMessageBox.Yes | QMessageBox.No)
+        if re == QMessageBox.Yes:
+            self.questions = []
+            with open("./data/question.json", "w") as file:
+                json.dump(self.questions, file)
+            QMessageBox.information(self.main_window, "清空题库", "清空完成！", QMessageBox.Ok)
+            self.set_question_list()
 
     def get_answers(self, question_string, move_number):
         re_answers = []
