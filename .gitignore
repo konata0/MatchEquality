@@ -2,6 +2,7 @@
 
 # build
 MatchEquality.spec
+MatchEquality.exe
 /__pycache__
 /build
 /dist

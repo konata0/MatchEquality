@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f29b154-9da3-46bd-94aa-02b5f0fc34d1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatchEquality.py" beforeDir="false" afterPath="$PROJECT_DIR$/MatchEquality.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,7 +15,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MatchEquality.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-5355">
+            <state relative-caret-position="125">
               <caret line="5" selection-start-line="5" selection-end-line="5" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
@@ -205,7 +204,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MatchEquality.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5355">
+        <state relative-caret-position="125">
           <caret line="5" selection-start-line="5" selection-end-line="5" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
