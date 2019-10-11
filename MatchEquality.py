@@ -47,27 +47,27 @@ def input_check(string):
 def question_string_normal_to_standard(question_string):
     question_string = question_string.replace(" ", "")
     string_list = question_string.split("=", 1)
-    number3 = string_list[1]
+    number3 = int(string_list[1])
     operation = "+"
     if "-" in string_list[0]:
         operation = "-"
     if "*" in string_list[0]:
         operation = "*"
     string_list = string_list[0].split(operation, 1)
-    number1 = string_list[0]
-    number2 = string_list[1]
+    number1 = int(string_list[0])
+    number2 = int(string_list[1])
     re = ""
-    if len(number1) == 1:
+    if number1 < 10:
         re += "?"
-    re += number1
+    re += str(number1)
     re += operation
-    if len(number2) == 1:
+    if number2 < 10:
         re += "?"
-    re += number2
+    re += str(number2)
     re += "="
-    if len(number3) == 1:
+    if number3 < 10:
         re += "?"
-    re += number3
+    re += str(number3)
     return re
 
 
@@ -76,6 +76,8 @@ def question_string_standard_to_normal(question_string):
 
 
 def equality_check(equality_string):
+    if equality_string[0] == "0" or equality_string[3] == "0" or equality_string[6] == "0":
+        return False
     equality_string = question_string_standard_to_normal(equality_string)
     string_list = equality_string.split("=")
     string = string_list[0]
@@ -121,7 +123,8 @@ class MainWindow(object):
         # 变量
         self.move_number = 1
         self.if_equality = False
-        self.answers = []
+        self.answers = None
+        self.answer_index = -1
         # 读取火柴移动规则
         file = open('./data/rule.json', encoding='utf-8')
         self.rule = json.loads(file.read())
@@ -169,18 +172,21 @@ class MainWindow(object):
         self.button_equality.setObjectName("button_equality")
         self.button_equality.setText("等式")
         self.button_equality.clicked.connect(self.button_equality_click)
-
         self.button_answer = QtWidgets.QPushButton(self.centralWidget)
         self.button_answer.setGeometry(QtCore.QRect(160, 520, 120, 40))
         self.button_answer.setObjectName("button_answer")
         self.button_answer.setText("作答")
         self.button_answer.clicked.connect(self.button_answer_click)
-
         self.button_add = QtWidgets.QPushButton(self.centralWidget)
         self.button_add.setGeometry(QtCore.QRect(160, 580, 120, 40))
         self.button_add.setObjectName("button_add")
         self.button_add.setText("添加到当前题库")
         self.button_add.clicked.connect(self.button_add_click)
+        self.button_before = QtWidgets.QPushButton(self.centralWidget)
+        self.button_before.setGeometry(QtCore.QRect(160, 580, 120, 40))
+        self.button_before.setObjectName("button_before")
+        self.button_before.setText("添加到当前题库")
+        self.button_before.clicked.connect(self.button_before_click)
 
         # LABEL
         # 提示信息
@@ -294,13 +300,15 @@ class MainWindow(object):
         self.question_list.clicked.connect(self.question_list_click)
         self.question_list.doubleClicked.connect(self.question_list_click)
         self.question = None
+        self.answers = None
+        self.answer_index = -1
         self.set_question_img("????????")
-        self.set_answer_img("88888888")
+        self.set_answer_img("????????")
 
     def question_list_click(self, index):
         self.question = question_string_normal_to_standard(self.question_list_string[index.row()])
         self.set_question_img(self.question)
-
+        self.answers = None
 
     def button_move_1_click(self):
         self.move_number = 1
@@ -325,19 +333,29 @@ class MainWindow(object):
     def button_answer_click(self):
         string = self.edit_answer.text()
         if not input_check(string):
-            QMessageBox.warning(self.main_window, "error", "输入字符串不符合格式！", QMessageBox.Yes)
+            QMessageBox.warning(self.main_window, "error", "输入字符串不符合格式！", QMessageBox.Ok)
             return
         string = question_string_normal_to_standard(string)
-        pass
+        if self.question is None:
+            QMessageBox.warning(self.main_window, "error", "请先选择题目！", QMessageBox.Ok)
+            return
+        if self.answers is None:
+            self.answers = self.get_answers(self.question, self.move_number)
+        if string in self.answers:
+            QMessageBox.information(self.main_window, "作答", "答案正确！", QMessageBox.Ok)
+            return
+        else:
+            QMessageBox.information(self.main_window, "作答", "答案错误！", QMessageBox.Ok)
+            return
 
     def button_add_click(self):
         string = self.edit_add.text()
         if not input_check(string):
-            QMessageBox.warning(self.main_window, "error", "输入字符串不符合格式！", QMessageBox.Yes)
+            QMessageBox.warning(self.main_window, "error", "输入字符串不符合格式！", QMessageBox.Ok)
             return
         string = question_string_normal_to_standard(string)
         if self.if_equality and not equality_check(string):
-            QMessageBox.warning(self.main_window, "error", "该题库要求输入等式！", QMessageBox.Yes)
+            QMessageBox.warning(self.main_window, "error", "该题库要求输入等式！", QMessageBox.Ok)
             return
         pass
 
@@ -345,8 +363,49 @@ class MainWindow(object):
         return self.rule[origin][operation]
 
     def get_answers(self, question_string, move_number):
-        pass
-
+        re_answers = []
+        move_list = self.move["move" + str(move_number)]
+        move_allow = {
+            0: ["0"],
+            1: ["0"],
+            2: ["0"],
+            3: ["0"],
+            4: ["0"],
+            5: ["0"],
+            6: ["0"],
+            7: ["0"]
+        }
+        for i in [0, 1, 2, 3, 4, 6, 7]:
+            element = self.rule[question_string[i]]
+            for operation in element.keys():
+                if len(element[operation]) > 0:
+                    move_allow[i].append(operation)
+        for move in move_list:
+            flag = True
+            for i in range(0, 8):
+                if move[i] not in move_allow[i]:
+                    flag = False
+                    break
+            if not flag:
+                continue
+            move_results = {0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: []}
+            for i in range(0, 8):
+                if move[i] == "0":
+                    move_results[i].append(question_string[i])
+                else:
+                    move_results[i] = self.rule[question_string[i]][move[i]]
+            for a0 in move_results[0]:
+                for a1 in move_results[1]:
+                    for a2 in move_results[2]:
+                        for a3 in move_results[3]:
+                            for a4 in move_results[4]:
+                                for a5 in move_results[5]:
+                                    for a6 in move_results[6]:
+                                        for a7 in move_results[7]:
+                                            answer = a0 + a1 + a2 + a3 + a4 + a5 + a6 + a7
+                                            if equality_check(answer):
+                                                re_answers.append(answer)
+        return re_answers
 
 
 if __name__ == "__main__":
