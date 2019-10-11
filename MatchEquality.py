@@ -78,6 +78,8 @@ def question_string_standard_to_normal(question_string):
 def equality_check(equality_string):
     if equality_string[0] == "0" or equality_string[3] == "0" or equality_string[6] == "0":
         return False
+    if equality_string[1] == "?" or equality_string[4] == "?" or equality_string[7] == "?":
+        return False
     equality_string = question_string_standard_to_normal(equality_string)
     string_list = equality_string.split("=")
     string = string_list[0]
@@ -116,6 +118,7 @@ class MainWindow(object):
         self.button_not_equality = None
         self.button_answer = None
         self.button_add = None
+        self.button_generate = None
         self.button_before = None
         self.button_next = None
         self.button_show_answer = None
@@ -123,6 +126,7 @@ class MainWindow(object):
         self.question_list_string = None
         self.edit_add = None
         self.edit_answer = None
+        self.edit_generate = None
         # 变量
         self.move_number = 1
         self.if_equality = False
@@ -185,6 +189,11 @@ class MainWindow(object):
         self.button_add.setObjectName("button_add")
         self.button_add.setText("添加到当前题库")
         self.button_add.clicked.connect(self.button_add_click)
+        self.button_generate = QtWidgets.QPushButton(self.centralWidget)
+        self.button_generate.setGeometry(QtCore.QRect(440, 520, 120, 40))
+        self.button_generate.setObjectName("button_generate")
+        self.button_generate.setText("由等式生成题目")
+        self.button_generate.clicked.connect(self.button_generate_click)
         self.button_show_answer = QtWidgets.QPushButton(self.centralWidget)
         self.button_show_answer.setGeometry(QtCore.QRect(700, 520, 120, 40))
         self.button_show_answer.setObjectName("button_show_answer")
@@ -255,6 +264,11 @@ class MainWindow(object):
         self.edit_add.setGeometry(QtCore.QRect(20, 580, 120, 40))
         self.edit_add.setObjectName("edit_add")
         self.edit_add.setAlignment(QtCore.Qt.AlignCenter)
+        # 由等式生成题库
+        self.edit_generate = QtWidgets.QLineEdit(self.centralWidget)
+        self.edit_generate.setGeometry(QtCore.QRect(300, 520, 120, 40))
+        self.edit_generate.setObjectName("edit_generate")
+        self.edit_generate.setAlignment(QtCore.Qt.AlignCenter)
 
         self.main_window.setCentralWidget(self.centralWidget)
         self.retranslate_ui()
@@ -397,6 +411,91 @@ class MainWindow(object):
         with open("./data/question.json", "w") as file:
             json.dump(self.questions, file)
         QMessageBox.information(self.main_window, "添加", "添加成功，刷新题库后可见！", QMessageBox.Ok)
+
+    def button_generate_click(self):
+        answer_string = self.edit_generate.text()
+        if not input_check(answer_string):
+            QMessageBox.warning(self.main_window, "error", "输入字符串不符合格式！", QMessageBox.Ok)
+            return
+        answer_string = question_string_normal_to_standard(answer_string)
+        if not equality_check(answer_string):
+            QMessageBox.warning(self.main_window, "error", "要求输入等式！", QMessageBox.Ok)
+            return
+        re_questions = []
+        move_list = self.move["move" + str(self.move_number)]
+        move_allow = {
+            0: ["0"],
+            1: ["0"],
+            2: ["0"],
+            3: ["0"],
+            4: ["0"],
+            5: ["0"],
+            6: ["0"],
+            7: ["0"]
+        }
+        for i in [0, 1, 2, 3, 4, 6, 7]:
+            element = self.rule[answer_string[i]]
+            for operation in element.keys():
+                if len(element[operation]) > 0:
+                    move_allow[i].append(operation)
+        for move in move_list:
+            flag = True
+            for i in range(0, 8):
+                if move[i] not in move_allow[i]:
+                    flag = False
+                    break
+            if not flag:
+                continue
+            move_results = {0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: []}
+            for i in range(0, 8):
+                if move[i] == "0":
+                    move_results[i].append(answer_string[i])
+                else:
+                    move_results[i] = self.rule[answer_string[i]][move[i]]
+            for a0 in move_results[0]:
+                for a1 in move_results[1]:
+                    for a2 in move_results[2]:
+                        for a3 in move_results[3]:
+                            for a4 in move_results[4]:
+                                for a5 in move_results[5]:
+                                    for a6 in move_results[6]:
+                                        for a7 in move_results[7]:
+                                            question_string = a0 + a1 + a2 + a3 + a4 + a5 + a6 + a7
+                                            if self.if_equality:
+                                                if equality_check(question_string):
+                                                    re_questions.append(question_string)
+                                            else:
+                                                if not equality_check(question_string):
+                                                    re_questions.append(question_string)
+        if len(re_questions) == 0:
+            QMessageBox.warning(self.main_window, "error", "该等式无法生成满足该题库条件的题目！", QMessageBox.Ok)
+            return
+        msg = "生成题目有：\n"
+        t = 0
+        for q in re_questions:
+            t += 1
+            msg += question_string_standard_to_normal(q) + "    "
+            if t == 3:
+                t = 0
+                msg += "\n"
+        msg += "\n\n是否添加题目到题库？"
+        re = QMessageBox.information(self.main_window, "生成题目", msg, QMessageBox.Yes | QMessageBox.No)
+        if re == QMessageBox.Yes:
+            for q in re_questions:
+                exist = False
+                for exist_q in self.questions:
+                    if exist_q["question"] == q and exist_q["moveNumber"] == self.move_number and exist_q["equality"] == self.if_equality:
+                        exist = True
+                        break
+                if not exist:
+                    self.questions.append({
+                        "question": q,
+                        "moveNumber": self.move_number,
+                        "equality": self.if_equality
+                    })
+                    with open("./data/question.json", "w") as file:
+                        json.dump(self.questions, file)
+            QMessageBox.information(self.main_window, "添加", "添加成功，刷新题库后可见！", QMessageBox.Ok)
 
     def button_show_answer_click(self):
         if self.question is None:
