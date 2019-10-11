@@ -116,6 +116,9 @@ class MainWindow(object):
         self.button_not_equality = None
         self.button_answer = None
         self.button_add = None
+        self.button_before = None
+        self.button_next = None
+        self.button_show_answer = None
         self.question_list = None
         self.question_list_string = None
         self.edit_add = None
@@ -182,11 +185,21 @@ class MainWindow(object):
         self.button_add.setObjectName("button_add")
         self.button_add.setText("添加到当前题库")
         self.button_add.clicked.connect(self.button_add_click)
+        self.button_show_answer = QtWidgets.QPushButton(self.centralWidget)
+        self.button_show_answer.setGeometry(QtCore.QRect(700, 520, 120, 40))
+        self.button_show_answer.setObjectName("button_show_answer")
+        self.button_show_answer.setText("显示解答")
+        self.button_show_answer.clicked.connect(self.button_show_answer_click)
         self.button_before = QtWidgets.QPushButton(self.centralWidget)
-        self.button_before.setGeometry(QtCore.QRect(160, 580, 120, 40))
+        self.button_before.setGeometry(QtCore.QRect(840, 520, 120, 40))
         self.button_before.setObjectName("button_before")
-        self.button_before.setText("添加到当前题库")
+        self.button_before.setText("上一解答")
         self.button_before.clicked.connect(self.button_before_click)
+        self.button_next = QtWidgets.QPushButton(self.centralWidget)
+        self.button_next.setGeometry(QtCore.QRect(840, 580, 120, 40))
+        self.button_next.setObjectName("button_next")
+        self.button_next.setText("下一解答")
+        self.button_next.clicked.connect(self.button_next_click)
 
         # LABEL
         # 提示信息
@@ -304,11 +317,15 @@ class MainWindow(object):
         self.answer_index = -1
         self.set_question_img("????????")
         self.set_answer_img("????????")
+        self.label_answer.setText("解答：")
 
     def question_list_click(self, index):
         self.question = question_string_normal_to_standard(self.question_list_string[index.row()])
         self.set_question_img(self.question)
+        self.set_answer_img("????????")
         self.answers = None
+        self.answer_index = -1
+        self.label_answer.setText("解答：")
 
     def button_move_1_click(self):
         self.move_number = 1
@@ -359,8 +376,37 @@ class MainWindow(object):
             return
         pass
 
-    def get_move_results(self, origin, operation):
-        return self.rule[origin][operation]
+    def button_show_answer_click(self):
+        if self.question is None:
+            QMessageBox.warning(self.main_window, "error", "请先选择题目！", QMessageBox.Ok)
+            return
+        if self.answers is None:
+            self.answers = self.get_answers(self.question, self.move_number)
+        self.answer_index = 0
+        self.label_answer.setText("解答（" + str(self.answer_index + 1) + "/" + str(len(self.answers)) + "）：")
+        self.set_answer_img(self.answers[self.answer_index])
+
+    def button_before_click(self):
+        if self.answers is None:
+            QMessageBox.warning(self.main_window, "error", "请先显示解答！", QMessageBox.Ok)
+            return
+        if self.answer_index == 0:
+            self.answer_index = len(self.answers) - 1
+        else:
+            self.answer_index -= 1
+        self.label_answer.setText("解答（" + str(self.answer_index + 1) + "/" + str(len(self.answers)) + "）：")
+        self.set_answer_img(self.answers[self.answer_index])
+
+    def button_next_click(self):
+        if self.answers is None:
+            QMessageBox.warning(self.main_window, "error", "请先显示解答！", QMessageBox.Ok)
+            return
+        if self.answer_index == len(self.answers) - 1:
+            self.answer_index = 0
+        else:
+            self.answer_index += 1
+        self.label_answer.setText("解答（" + str(self.answer_index + 1) + "/" + str(len(self.answers)) + "）：")
+        self.set_answer_img(self.answers[self.answer_index])
 
     def get_answers(self, question_string, move_number):
         re_answers = []

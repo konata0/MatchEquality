@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f29b154-9da3-46bd-94aa-02b5f0fc34d1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MatchEquality.py" beforeDir="false" afterPath="$PROJECT_DIR$/MatchEquality.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/question.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/question.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,21 +15,22 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MatchEquality.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="636">
-              <caret line="303" column="30" selection-start-line="303" selection-start-column="30" selection-end-line="303" selection-end-column="30" />
+            <state relative-caret-position="317">
+              <caret line="408" column="60" selection-start-line="408" selection-start-column="60" selection-end-line="408" selection-end-column="60" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
                 <element signature="e#190#1169#0" />
                 <element signature="e#1233#1845#0" />
                 <element signature="e#2029#2656#0" />
                 <element signature="e#10345#10785#0" />
-                <element signature="e#11819#11982#0" />
                 <element signature="e#11842#11928#0" />
                 <element signature="e#11973#12059#0" />
                 <element signature="e#12110#12200#0" />
                 <element signature="e#12247#12336#0" />
                 <element signature="e#12381#13087#0" />
                 <element signature="e#13129#13544#0" />
+                <element signature="e#14642#15050#0" />
+                <element signature="e#15629#15633#0" />
                 <element signature="e#13707#14617#0" />
               </folding>
             </state>
@@ -160,13 +159,13 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13738441" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13738441" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4993395" visible="true" weight="0.10339943" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3201133" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4993395" visible="true" weight="0.15864022" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3186969" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3286119" />
@@ -196,21 +195,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MatchEquality.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="636">
-          <caret line="303" column="30" selection-start-line="303" selection-start-column="30" selection-end-line="303" selection-end-column="30" />
+        <state relative-caret-position="317">
+          <caret line="408" column="60" selection-start-line="408" selection-start-column="60" selection-end-line="408" selection-end-column="60" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#190#1169#0" />
             <element signature="e#1233#1845#0" />
             <element signature="e#2029#2656#0" />
             <element signature="e#10345#10785#0" />
-            <element signature="e#11819#11982#0" />
             <element signature="e#11842#11928#0" />
             <element signature="e#11973#12059#0" />
             <element signature="e#12110#12200#0" />
             <element signature="e#12247#12336#0" />
             <element signature="e#12381#13087#0" />
             <element signature="e#13129#13544#0" />
+            <element signature="e#14642#15050#0" />
+            <element signature="e#15629#15633#0" />
             <element signature="e#13707#14617#0" />
           </folding>
         </state>
