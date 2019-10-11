@@ -374,7 +374,29 @@ class MainWindow(object):
         if self.if_equality and not equality_check(string):
             QMessageBox.warning(self.main_window, "error", "该题库要求输入等式！", QMessageBox.Ok)
             return
-        pass
+        if not self.if_equality and equality_check(string):
+            QMessageBox.warning(self.main_window, "error", "该题库要求输入非成立等式！", QMessageBox.Ok)
+            return
+        answers = self.get_answers(string, self.move_number)
+        if len(answers) == 0:
+            QMessageBox.warning(self.main_window, "error", "该题目在当前题库条件下无解，无法添加！", QMessageBox.Ok)
+            return
+        exist = False
+        for q in self.questions:
+            if q["question"] == string and q["moveNumber"] == self.move_number and q["equality"] == self.if_equality:
+                exist = True
+                break
+        if exist:
+            QMessageBox.warning(self.main_window, "error", "该题目已经存在，无法添加！", QMessageBox.Ok)
+            return
+        self.questions.append({
+            "question": string,
+            "moveNumber": self.move_number,
+            "equality": self.if_equality
+        })
+        with open("./data/question.json", "w") as file:
+            json.dump(self.questions, file)
+        QMessageBox.information(self.main_window, "添加", "添加成功，刷新题库后可见！", QMessageBox.Ok)
 
     def button_show_answer_click(self):
         if self.question is None:
