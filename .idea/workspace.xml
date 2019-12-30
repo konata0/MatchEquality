@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f29b154-9da3-46bd-94aa-02b5f0fc34d1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/MatchEquality.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MatchEquality.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,33 +18,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MatchEquality.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
+            <state relative-caret-position="600">
+              <caret line="292" column="48" selection-start-line="292" selection-start-column="48" selection-end-line="292" selection-end-column="48" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
-                <element signature="e#190#1169#0" />
-                <element signature="e#1233#1845#0" />
-                <element signature="e#2029#2656#0" />
-                <element signature="e#9399#9519#0" />
-                <element signature="e#9562#9783#0" />
-                <element signature="e#9842#10290#0" />
-                <element signature="e#10345#10785#0" />
-                <element signature="e#11753#12629#0" />
-                <element signature="e#12686#12961#0" />
-                <element signature="e#11842#11928#0" />
-                <element signature="e#11973#12059#0" />
-                <element signature="e#12110#12200#0" />
-                <element signature="e#12247#12336#0" />
-                <element signature="e#12381#13087#0" />
-                <element signature="e#14629#15840#0" />
-                <element signature="e#16952#21062#0" />
-                <element signature="e#14642#15050#0" />
-                <element signature="e#15578#16009#0" />
-                <element signature="e#15629#15633#0" />
-                <element signature="e#22953#23353#0" />
-                <element signature="e#13707#14617#0" />
-                <element signature="e#13835#14000#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/getMove.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="325">
+              <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -81,6 +70,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -97,11 +87,11 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -167,14 +157,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13738441" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13738441" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4993395" visible="true" weight="0.44050992" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4993395" weight="0.44050992" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.18413597" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -198,40 +187,20 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data/render" />
-    <entry file="file://$PROJECT_DIR$/data/getMove.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4073" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MatchEquality.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        <state relative-caret-position="600">
+          <caret line="292" column="48" selection-start-line="292" selection-start-column="48" selection-end-line="292" selection-end-column="48" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#190#1169#0" />
-            <element signature="e#1233#1845#0" />
-            <element signature="e#2029#2656#0" />
-            <element signature="e#9399#9519#0" />
-            <element signature="e#9562#9783#0" />
-            <element signature="e#9842#10290#0" />
-            <element signature="e#10345#10785#0" />
-            <element signature="e#11753#12629#0" />
-            <element signature="e#12686#12961#0" />
-            <element signature="e#11842#11928#0" />
-            <element signature="e#11973#12059#0" />
-            <element signature="e#12110#12200#0" />
-            <element signature="e#12247#12336#0" />
-            <element signature="e#12381#13087#0" />
-            <element signature="e#14629#15840#0" />
-            <element signature="e#16952#21062#0" />
-            <element signature="e#14642#15050#0" />
-            <element signature="e#15578#16009#0" />
-            <element signature="e#15629#15633#0" />
-            <element signature="e#22953#23353#0" />
-            <element signature="e#13707#14617#0" />
-            <element signature="e#13835#14000#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/getMove.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
         </state>
       </provider>
     </entry>
